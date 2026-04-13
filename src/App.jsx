@@ -4,6 +4,8 @@ import Header from './component/header';
 import Footer from './component/footer';
 import Home from './component/pages/home';
 import Articles from './component/pages/articles';
+import News from './component/pages/news';
+
 function App() {
   return (
     <Router>
@@ -11,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/news" element={<News />} />
         <Route path="/quantum-buzz" element={<QuantumBuzzPage />} />
       </Routes>
       <Footer />

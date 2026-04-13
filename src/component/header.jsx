@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navLinks = ["Home", "Articles", "News", "Updates", "Companies", "Products & Services", "Membership"];
+  const location = useLocation();
+  
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Articles", path: "/articles" },
+    { name: "News", path: "/news" },
+    { name: "Updates", path: "#" },
+    { name: "Companies", path: "#" },
+    { name: "Products & Services", path: "#" },
+    { name: "Membership", path: "#" }
+  ];
+
+  const isActive = (path) => {
+    if (path === '/' && location.pathname === '/') return true;
+    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    return false;
+  };
 
   return (
     <header className="bg-white border-b border-[#c2c2c2] sticky top-0 z-50 px-6 py-5 flex items-center justify-between">
@@ -17,11 +33,11 @@ const Header = () => {
       <nav className="hidden lg:flex gap-6 text-gray-600 font-medium text-sm">
         {navLinks.map((link) => (
           <Link 
-            key={link} 
-            to={link === 'Home' ? '/' : link === 'Articles' ? '/articles' : '#'} 
-            className={`hover:text-[#C2185B] transition-colors py-1 ${link === 'Home' ? 'text-[#C2185B] border-b-2 border-[#C2185B]' : ''}`}
+            key={link.name} 
+            to={link.path} 
+            className={`hover:text-[#C2185B] transition-colors py-1 ${isActive(link.path) ? 'text-[#C2185B] border-b-2 border-[#C2185B]' : ''}`}
           >
-            {link}
+            {link.name}
           </Link>
         ))}
       </nav>
@@ -62,12 +78,12 @@ const Header = () => {
           <nav className="flex flex-col gap-4 py-6 border-b border-gray-100 text-gray-600 font-medium text-base">
             {navLinks.map((link) => (
               <Link 
-                key={link} 
-                to={link === 'Home' ? '/' : link === 'Articles' ? '/articles' : '#'} 
-                className={`hover:text-[#C2185B] transition-colors ${link === 'Home' ? 'text-[#C2185B] font-bold' : ''}`}
+                key={link.name} 
+                to={link.path} 
+                className={`hover:text-[#C2185B] transition-colors ${isActive(link.path) ? 'text-[#C2185B] font-bold' : ''}`}
                 onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
               >
-                {link}
+                {link.name}
               </Link>
             ))}
           </nav>

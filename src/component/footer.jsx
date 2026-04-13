@@ -26,11 +26,14 @@ const Footer = () => {
 
           {/* Navigation Links */}
           <nav className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
-            {navLinks.map((link, idx) => (
-              <Link key={idx} to={link === 'Home' ? '/' : link === 'Articles' ? '/articles' : '#'} className="text-[12px] font-medium hover:text-gray-200 transition-colors">
-                {link}
-              </Link>
-            ))}
+            {navLinks.map((link, idx) => {
+              const path = link === 'Home' ? '/' : link === 'Articles' ? '/articles' : link === 'News' ? '/news' : '#';
+              return (
+                <Link key={idx} to={path} className="text-[12px] font-medium hover:text-gray-200 transition-colors">
+                  {link}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
